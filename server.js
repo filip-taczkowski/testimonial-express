@@ -6,6 +6,8 @@ const app = express();
 
 /* Middlewares*/
 app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 /* DB */
 const db = [
@@ -26,9 +28,37 @@ app.get('/testimonials/:id', (req, res) =>{
   res.json(db.filter( client => client.id == req.params.id ));
 });
 
+app.post('/testimonials', (req, res) => {
+  const newClient = {
+    id: uuidv4(),
+    author: req.body.author,
+    text: req.body.text,
+  };
+  db.push(newClient);
+  res.json({ message: 'OK' });
+});
+
+app.put('/testimonials/:id', (req, res) => {
+  db.map(client => {
+    if ( client.id == req.params.id ) {
+      client.author = req.body.author;
+      client.text = req.body.text;
+    };
+  });
+  res.json({ message: 'OK' });
+});
+
+app.delete('/testimonials/:id', (req, res) => {
+  db.map((client, index) => {
+    if ( client.id == req.params.id ) {
+      db.splice(index, 1);
+    }
+  })
+  res.json({ message: 'OK' });
+})
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Not found...' });
+  res.status(404).json({ message: 'Page not found' });
 });
 
 app.listen(8000, () => {
