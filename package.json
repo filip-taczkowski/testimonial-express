@@ -5,6 +5,9 @@
   "repository": "git@github.com:filip-taczkowski/testimonial-express.git",
   "author": "Filip Taczkowski <filip.taczkowski@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "uuid": "^7.0.2"
