@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./db');
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors');
 
 const app = express();
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 /* Routes */
 const testimonialsRoutes = require('./routes/testimonials.routes');
