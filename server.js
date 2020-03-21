@@ -8,9 +8,11 @@ const app = express();
 
 /* Middlewares*/
 app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+
 
 /* Routes */
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -21,10 +23,14 @@ app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
+
 app.use((req, res) => {
   res.status(404).json({ message: 'Page not found' });
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running on port: 8000');
 });
