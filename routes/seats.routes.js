@@ -31,7 +31,7 @@ router.route('/seats').post((req, res) => {
     res.status(403).json({ message: 'This seast is already taken'});
   } else {
     db.seats.push(newSeat);
-    res.json({ message: 'OK' });
+    io.emit('seatsUpdated', db.seats);
   }
 });
 
