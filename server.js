@@ -35,7 +35,7 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Page not found' });
 });
 
-mongoose.connect('mongodb://localhost:27017/festivalDB', {userNewUrlParser: true, userUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/NewWaveDB', {userNewUrlParser: true, userUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
