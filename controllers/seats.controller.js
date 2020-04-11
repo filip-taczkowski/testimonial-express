@@ -36,6 +36,7 @@ exports.post = async (req, res) => {
     });
     await newSeat.save();
     res.json(newSeat);
+    req.io.emit('seatsUpdated', db.seats);
   } catch(err) {
     res.status(500).json(err);
   }
@@ -56,7 +57,7 @@ exports.delete = async (req, res) => {
     res.status(500).json(err);
   }
 
-  req.io.emit('seatsUpdated', db.seats);
+  req.io.emit('seatsUpdated');
 };
 
 exports.put = async (req, res) => {
