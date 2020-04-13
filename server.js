@@ -35,7 +35,7 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Page not found' });
 });
 
-mongoose.connect('mongodb+srv://admin:ofk379OnzB5AvjGQ@cluster0-98b5u.azure.mongodb.net/NewWaveDB?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb+srv://admin:${process.env.dbPwd}@cluster0-98b5u.azure.mongodb.net/NewWaveDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
